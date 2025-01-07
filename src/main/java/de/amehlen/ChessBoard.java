@@ -20,11 +20,11 @@ public class ChessBoard extends GridPane {
     }
 
     private void drawChessBoard() {
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            for (int row = 0; row < BOARD_SIZE; row++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
-                tile.setFill((col + row) % 2 == 0 ? SANDCASTLE_LIGHT : SANDCASTLE_DARK);
-                this.add(tile, col, row);
+                tile.setFill((row + col) % 2 == 0 ? SANDCASTLE_LIGHT : SANDCASTLE_DARK);
+                this.add(tile, row, col);
             }
         }
     }
