@@ -1,5 +1,10 @@
 # Chess Game
 
+## Tech Stack
+
+- Java 17
+- JavaFX 21
+
 ---
 
 ## Milestones
