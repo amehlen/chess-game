@@ -11,6 +11,7 @@
 
 - [x] Set up a maven project with Java 17 and JavaFX
 - [x] Draw a chess game board
+- [ ] Add column labelling (A-H) and row labelling (1-8) to the game board
 - [x] Load the chess pieces as graphics and draw them in their starting position
 - [ ] Read the starting position of the chess pieces as FEN notation from a file
 - [ ] Select a chess piece with the mouse
