@@ -12,7 +12,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         ChessBoard chessBoard = new ChessBoard();
-        Scene scene = new Scene(chessBoard, 640, 640);
+        Scene scene = new Scene(chessBoard, chessBoard.getChessBoardWidth(), chessBoard.getChessBoardHeight());
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/chess-icon.png")));
         stage.getIcons().add(icon);
