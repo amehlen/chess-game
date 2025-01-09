@@ -13,6 +13,7 @@ public class ChessBoard extends GridPane {
     private static final Color SANDCASTLE_LIGHT = Color.rgb(228, 193, 112);
     private static final String WHITE_PIECE = "white";
     private static final String BLACK_PIECE = "black";
+    private static final String FEN_STRING = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
     public ChessBoard() {
         drawChessBoard();
@@ -30,36 +31,47 @@ public class ChessBoard extends GridPane {
     }
 
     private void placePieces() {
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            this.add(new Pawn(WHITE_PIECE), col, 6); // White pawns
-            this.add(new Pawn(BLACK_PIECE), col, 1); // Black pawns
+        String[] rows = FEN_STRING.split("/");
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            int col = 0;
+            for (char c : rows[row].toCharArray()) {
+                if (Character.isDigit(c)) {
+                    col += Character.getNumericValue(c);
+                } else {
+                    ChessPiece piece = getPiece(c);
+                    setRowIndex(piece, row);
+                    setColumnIndex(piece, col);
+                    this.add(piece, col, row);
+                    col++;
+                }
+            }
         }
+    }
 
-        // Rooks
-        this.add(new Rook(BLACK_PIECE), 0,0);
-        this.add(new Rook(WHITE_PIECE), 0,7);
-        this.add(new Rook(BLACK_PIECE), 7,0);
-        this.add(new Rook(WHITE_PIECE), 7,7);
-
-        // Knight
-        this.add(new Knight(BLACK_PIECE), 1,0);
-        this.add(new Knight(WHITE_PIECE), 1,7);
-        this.add(new Knight(BLACK_PIECE), 6,0);
-        this.add(new Knight(WHITE_PIECE), 6,7);
-
-        // Bishop
-        this.add(new Bishop(BLACK_PIECE), 2,0);
-        this.add(new Bishop(WHITE_PIECE), 2,7);
-        this.add(new Bishop(BLACK_PIECE), 5,0);
-        this.add(new Bishop(WHITE_PIECE), 5,7);
-
-        // King
-        this.add(new King(BLACK_PIECE), 4,0);
-        this.add(new King(WHITE_PIECE), 4,7);
-
-        // Queen
-        this.add(new Queen(BLACK_PIECE), 3,0);
-        this.add(new Queen(WHITE_PIECE), 3,7);
+    private ChessPiece getPiece(char pieceSymbol) {
+        ChessPiece result;
+        if (Character.isUpperCase(pieceSymbol)) {
+            result = switch (pieceSymbol) {
+                case 'B' -> new Bishop(WHITE_PIECE);
+                case 'K' -> new King(WHITE_PIECE);
+                case 'N' -> new Knight(WHITE_PIECE);
+                case 'P' -> new Pawn(WHITE_PIECE);
+                case 'Q' -> new Queen(WHITE_PIECE);
+                case 'R' -> new Rook(WHITE_PIECE);
+                default -> null;
+            };
+        } else {
+            result = switch (pieceSymbol) {
+                case 'b' -> new Bishop(BLACK_PIECE);
+                case 'k' -> new King(BLACK_PIECE);
+                case 'n' -> new Knight(BLACK_PIECE);
+                case 'p' -> new Pawn(BLACK_PIECE);
+                case 'q' -> new Queen(BLACK_PIECE);
+                case 'r' -> new Rook(BLACK_PIECE);
+                default -> null;
+            };
+        }
+        return result;
     }
 
 }
