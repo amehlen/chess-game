@@ -1,15 +1,14 @@
 package de.amehlen.pieces;
 
-public class ChessPieceFactory {
+import de.amehlen.ChessPieceColor;
 
-    private static final String WHITE_PIECE = "white";
-    private static final String BLACK_PIECE = "black";
+public class ChessPieceFactory {
 
     private ChessPieceFactory() {
     }
 
     public static ChessPiece createPiece(char pieceSymbol) {
-        String color = Character.isUpperCase(pieceSymbol) ? WHITE_PIECE : BLACK_PIECE;
+        ChessPieceColor color = Character.isUpperCase(pieceSymbol) ? ChessPieceColor.WHITE : ChessPieceColor.BLACK;
         return switch (Character.toLowerCase(pieceSymbol)) {
             case 'b' -> new Bishop(color);
             case 'k' -> new King(color);

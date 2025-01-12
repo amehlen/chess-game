@@ -1,8 +1,11 @@
 package de.amehlen.pieces;
 
+import de.amehlen.ChessPieceColor;
+
 public class Rook extends ChessPiece {
 
-    public Rook(String color) {
-        super("chess_rook_" + color + ".png");
+    public Rook(ChessPieceColor color) {
+        super("chess_rook_" + color.name()
+                                   .toLowerCase() + ".png");
     }
 }
