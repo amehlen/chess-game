@@ -7,6 +7,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Optional;
+
 public class ChessBoard extends GridPane {
 
     private static final int TILE_SIZE = 80;
@@ -44,7 +50,8 @@ public class ChessBoard extends GridPane {
     }
 
     private void placePieces() {
-        String[] rows = FEN_STRING.split("/");
+        String[] rows = readFenStringFromFile().orElse(FEN_STRING)
+                                               .split("/");
         for (int row = 0; row < BOARD_WIDTH; row++) {
             int col = 0;
             for (char c : rows[row].toCharArray()) {
@@ -59,6 +66,20 @@ public class ChessBoard extends GridPane {
                     col++;
                 }
             }
+        }
+    }
+
+    private Optional<String> readFenStringFromFile() {
+        InputStream inputStream = getClass().getResourceAsStream("/fen.txt");
+        if (inputStream == null) {
+            return Optional.empty();
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String text = br.readLine();
+            return Optional.ofNullable(text);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading the file", e);
         }
     }
 
