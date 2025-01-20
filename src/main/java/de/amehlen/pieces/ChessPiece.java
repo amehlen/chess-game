@@ -4,27 +4,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-import java.util.Objects;
-
 public abstract class ChessPiece extends StackPane {
 
-    protected ImageView imageView;
+    private final Image image;
     private Position position;
 
-    protected ChessPiece(String filename, Position position) {
+    protected ChessPiece(Image image, Position position) {
         this.position = position;
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pieces/" + filename)));
+        this.image = image;
 
-        if (image.isError()) {
-            throw new IllegalArgumentException("Image not found: " + filename);
-        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
 
-        this.imageView = new ImageView(image);
-        this.imageView.setFitWidth(60);
-        this.imageView.setFitHeight(60);
         this.getChildren()
             .add(imageView);
 
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public Position getPosition() {
@@ -34,5 +33,5 @@ public abstract class ChessPiece extends StackPane {
     public void setPosition(Position position) {
         this.position = position;
     }
-    
+
 }

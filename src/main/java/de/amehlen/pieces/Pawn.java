@@ -1,11 +1,10 @@
 package de.amehlen.pieces;
 
-import de.amehlen.ChessPieceColor;
+import javafx.scene.image.Image;
 
 public class Pawn extends ChessPiece {
 
-    public Pawn(ChessPieceColor color, Position position) {
-        super("chess_pawn_" + color.name()
-                                   .toLowerCase() + ".png", position);
+    public Pawn(Image image, Position position) {
+        super(image, position);
     }
 }

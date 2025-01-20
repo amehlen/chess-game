@@ -1,11 +1,10 @@
 package de.amehlen.pieces;
 
-import de.amehlen.ChessPieceColor;
+import javafx.scene.image.Image;
 
 public class Bishop extends ChessPiece {
 
-    public Bishop(ChessPieceColor color, Position position) {
-        super("chess_bishop_" + color.name()
-                                     .toLowerCase() + ".png", position);
+    public Bishop(Image image, Position position) {
+        super(image, position);
     }
 }

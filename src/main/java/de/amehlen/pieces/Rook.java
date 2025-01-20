@@ -1,11 +1,10 @@
 package de.amehlen.pieces;
 
-import de.amehlen.ChessPieceColor;
+import javafx.scene.image.Image;
 
 public class Rook extends ChessPiece {
 
-    public Rook(ChessPieceColor color, Position position) {
-        super("chess_rook_" + color.name()
-                                   .toLowerCase() + ".png", position);
+    public Rook(Image image, Position position) {
+        super(image, position);
     }
 }

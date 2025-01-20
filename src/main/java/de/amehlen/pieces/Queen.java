@@ -1,11 +1,10 @@
 package de.amehlen.pieces;
 
-import de.amehlen.ChessPieceColor;
+import javafx.scene.image.Image;
 
 public class Queen extends ChessPiece {
 
-    public Queen(ChessPieceColor color, Position position) {
-        super("chess_queen_" + color.name()
-                                    .toLowerCase() + ".png", position);
+    public Queen(Image image, Position position) {
+        super(image, position);
     }
 }
