@@ -1,4 +1,4 @@
-package de.amehlen;
+package de.amehlen.pieces;
 
 public enum ChessPieceColor {
     WHITE, BLACK

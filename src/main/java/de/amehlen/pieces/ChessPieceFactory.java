@@ -1,6 +1,5 @@
 package de.amehlen.pieces;
 
-import de.amehlen.ChessPieceColor;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
