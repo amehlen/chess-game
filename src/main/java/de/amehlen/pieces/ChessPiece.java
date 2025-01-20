@@ -9,8 +9,10 @@ import java.util.Objects;
 public abstract class ChessPiece extends StackPane {
 
     protected ImageView imageView;
+    private Position position;
 
-    protected ChessPiece(String filename) {
+    protected ChessPiece(String filename, Position position) {
+        this.position = position;
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pieces/" + filename)));
 
         if (image.isError()) {
@@ -24,4 +26,13 @@ public abstract class ChessPiece extends StackPane {
             .add(imageView);
 
     }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+    
 }

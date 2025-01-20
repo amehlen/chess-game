@@ -4,8 +4,8 @@ import de.amehlen.ChessPieceColor;
 
 public class King extends ChessPiece {
 
-    public King(ChessPieceColor color) {
+    public King(ChessPieceColor color, Position position) {
         super("chess_king_" + color.name()
-                                   .toLowerCase() + ".png");
+                                   .toLowerCase() + ".png", position);
     }
 }

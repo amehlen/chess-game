@@ -1,6 +1,8 @@
 package de.amehlen;
 
-import de.amehlen.pieces.*;
+import de.amehlen.pieces.ChessPiece;
+import de.amehlen.pieces.ChessPieceFactory;
+import de.amehlen.pieces.Position;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -49,7 +51,8 @@ public class ChessBoard extends GridPane {
                 if (Character.isDigit(c)) {
                     col += Character.getNumericValue(c);
                 } else {
-                    ChessPiece piece = ChessPieceFactory.createPiece(c);
+                    Position position = new Position(row, col);
+                    ChessPiece piece = ChessPieceFactory.createPiece(c, position);
                     setRowIndex(piece, row);
                     setColumnIndex(piece, col);
                     this.add(piece, col, row);
