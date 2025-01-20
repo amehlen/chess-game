@@ -7,10 +7,12 @@ import javafx.scene.layout.StackPane;
 public abstract class ChessPiece extends StackPane {
 
     private final Image image;
+    private final ChessPieceType type;
     private Position position;
 
-    protected ChessPiece(Image image, Position position) {
+    protected ChessPiece(ChessPieceType type, Image image, Position position) {
         this.position = position;
+        this.type = type;
         this.image = image;
 
         ImageView imageView = new ImageView(image);
@@ -24,6 +26,10 @@ public abstract class ChessPiece extends StackPane {
 
     public Image getImage() {
         return image;
+    }
+
+    public ChessPieceType getType() {
+        return type;
     }
 
     public Position getPosition() {

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Queen extends ChessPiece {
 
-    public Queen(Image image, Position position) {
-        super(image, position);
+    public Queen(ChessPieceType type, Image image, Position position) {
+        super(type, image, position);
     }
 }
