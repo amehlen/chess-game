@@ -1,11 +1,15 @@
 package de.amehlen.pieces;
 
 import javafx.scene.image.Image;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ChessPieceFactory {
+
+    private static final Logger LOGGER = LogManager.getLogger(ChessPieceFactory.class);
 
     private static final Map<String, Image> imageCache = new HashMap<>();
 
@@ -17,6 +21,8 @@ public class ChessPieceFactory {
         ChessPieceType type = mapToType(piece);
         String key = type.getDisplayName() + "_" + color.name()
                                                         .toLowerCase();
+        LOGGER.info("Load image with the following key: {}", key);
+
         Image image = imageCache.computeIfAbsent(key, k -> new Image(
                 ChessPieceFactory.class.getResourceAsStream("/pieces/chess_" + key + ".png")));
 

@@ -40,4 +40,12 @@ public abstract class ChessPiece extends StackPane {
         this.position = position;
     }
 
+    @Override
+    public String toString() {
+        return "ChessPiece{" +
+                "type=" + type +
+                ", position=" + position +
+                '}';
+    }
+
 }

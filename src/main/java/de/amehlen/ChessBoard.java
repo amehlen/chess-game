@@ -6,6 +6,8 @@ import de.amehlen.pieces.Position;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.io.InputStreamReader;
 import java.util.Optional;
 
 public class ChessBoard extends GridPane {
+
+    private static final Logger LOGGER = LogManager.getLogger(ChessBoard.class);
 
     private static final int TILE_SIZE = 80;
     private static final int BOARD_WIDTH = 8;
@@ -38,6 +42,7 @@ public class ChessBoard extends GridPane {
     }
 
     private void drawChessBoard() {
+        LOGGER.info("Draw chessboard");
         for (int row = 0; row < BOARD_WIDTH; row++) {
             for (int col = 0; col < BOARD_HEIGHT; col++) {
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
@@ -50,6 +55,7 @@ public class ChessBoard extends GridPane {
     }
 
     private void placePieces() {
+        LOGGER.info("Draw chess pieces on the chessboard");
         String[] rows = readFenStringFromFile().orElse(FEN_STRING)
                                                .split("/");
         for (int row = 0; row < BOARD_WIDTH; row++) {
@@ -60,6 +66,7 @@ public class ChessBoard extends GridPane {
                 } else {
                     Position position = new Position(row, col);
                     ChessPiece piece = ChessPieceFactory.createPiece(c, position);
+                    LOGGER.info("Draw the following chess piece: {}", piece);
                     setRowIndex(piece, row);
                     setColumnIndex(piece, col);
                     this.add(piece, col, row);
@@ -77,6 +84,7 @@ public class ChessBoard extends GridPane {
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String text = br.readLine();
+            LOGGER.info("FEN-String read from file: {}", text);
             return Optional.ofNullable(text);
         } catch (IOException e) {
             throw new RuntimeException("Error reading the file", e);
