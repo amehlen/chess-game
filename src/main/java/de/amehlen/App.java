@@ -17,7 +17,7 @@ public class App extends Application {
     public void start(Stage stage) {
         ChessBoard chessBoard = new ChessBoard();
 
-        MenuHandler menuHandler = new MenuHandler(stage);
+        MenuHandler menuHandler = new MenuHandler(stage, chessBoard);
         MenuBar menuBar = menuHandler.createMenuBar();
 
         BorderPane root = new BorderPane();

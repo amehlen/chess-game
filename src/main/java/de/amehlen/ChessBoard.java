@@ -6,14 +6,13 @@ import de.amehlen.pieces.Position;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Optional;
 
 public class ChessBoard extends GridPane {
 
@@ -25,13 +24,12 @@ public class ChessBoard extends GridPane {
     private static final Color SANDCASTLE_DARK = Color.rgb(184, 140, 75);
     private static final Color SANDCASTLE_LIGHT = Color.rgb(228, 193, 112);
     private static final String DEFAULT_FEN_STRING = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-    private static final String FEN_STRING_FILE = "/fen.txt";
     private static final int STROKE_WIDTH = 1;
     private static final Color STROKE_COLOR = Color.BLACK;
 
     public ChessBoard() {
         drawChessBoard();
-        placePieces();
+        placePieces(DEFAULT_FEN_STRING);
     }
 
     public int getChessBoardWidth() {
@@ -55,10 +53,9 @@ public class ChessBoard extends GridPane {
         }
     }
 
-    private void placePieces() {
+    private void placePieces(String fenString) {
         LOGGER.info("Draw chess pieces on the chessboard");
-        String[] rows = readFenStringFromFile().orElse(DEFAULT_FEN_STRING)
-                                               .split("/");
+        String[] rows = fenString.split("/");
         for (int row = 0; row < BOARD_WIDTH; row++) {
             int col = 0;
             for (char c : rows[row].toCharArray()) {
@@ -77,19 +74,28 @@ public class ChessBoard extends GridPane {
         }
     }
 
-    private Optional<String> readFenStringFromFile() {
-        InputStream inputStream = getClass().getResourceAsStream(FEN_STRING_FILE);
-        if (inputStream == null) {
-            return Optional.empty();
-        }
+    public void loadFenFromFile(File file) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String fenString = br.readLine();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-            String text = br.readLine();
-            LOGGER.info("FEN-String read from file: {}", text);
-            return Optional.ofNullable(text);
+            if (fenString == null || fenString.isBlank()) {
+                LOGGER.warn("The file is empty or contains only whitespace. Using default FEN string.");
+                fenString = DEFAULT_FEN_STRING;
+            } else {
+                LOGGER.info("FEN-String read from file: {}", fenString);
+            }
+            updateChessBoard(fenString);
         } catch (IOException e) {
-            throw new RuntimeException("Error reading the file", e);
+            LOGGER.error("Error reading the file", e);
+            updateChessBoard(DEFAULT_FEN_STRING);
         }
+    }
+
+    private void updateChessBoard(String fenString) {
+        this.getChildren()
+            .clear();
+        drawChessBoard();
+        placePieces(fenString);
     }
 
 }
