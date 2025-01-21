@@ -44,13 +44,13 @@ public class ChessBoard extends GridPane {
 
     private void drawChessBoard() {
         LOGGER.info("Draw chessboard");
-        for (int row = 0; row < BOARD_WIDTH; row++) {
+        for (int row = 0; row < BOARD_HEIGHT; row++) {
             for (int col = 0; col < BOARD_HEIGHT; col++) {
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
                 tile.setFill((row + col) % 2 == 0 ? SANDCASTLE_LIGHT : SANDCASTLE_DARK);
                 tile.setStroke(STROKE_COLOR);
                 tile.setStrokeWidth(STROKE_WIDTH);
-                this.add(tile, row, col);
+                this.add(tile, col, row);
             }
         }
     }
