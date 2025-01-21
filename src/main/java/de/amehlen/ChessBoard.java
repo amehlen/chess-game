@@ -24,7 +24,8 @@ public class ChessBoard extends GridPane {
     private static final int BOARD_HEIGHT = 8;
     private static final Color SANDCASTLE_DARK = Color.rgb(184, 140, 75);
     private static final Color SANDCASTLE_LIGHT = Color.rgb(228, 193, 112);
-    private static final String FEN_STRING = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+    private static final String DEFAULT_FEN_STRING = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+    private static final String FEN_STRING_FILE = "/fen.txt";
     private static final int STROKE_WIDTH = 1;
     private static final Color STROKE_COLOR = Color.BLACK;
 
@@ -56,7 +57,7 @@ public class ChessBoard extends GridPane {
 
     private void placePieces() {
         LOGGER.info("Draw chess pieces on the chessboard");
-        String[] rows = readFenStringFromFile().orElse(FEN_STRING)
+        String[] rows = readFenStringFromFile().orElse(DEFAULT_FEN_STRING)
                                                .split("/");
         for (int row = 0; row < BOARD_WIDTH; row++) {
             int col = 0;
@@ -77,7 +78,7 @@ public class ChessBoard extends GridPane {
     }
 
     private Optional<String> readFenStringFromFile() {
-        InputStream inputStream = getClass().getResourceAsStream("/fen.txt");
+        InputStream inputStream = getClass().getResourceAsStream(FEN_STRING_FILE);
         if (inputStream == null) {
             return Optional.empty();
         }
