@@ -8,12 +8,14 @@ public abstract class ChessPiece extends StackPane {
 
     private final Image image;
     private final ChessPieceType type;
+    private final ChessPieceColor color;
     private Position position;
 
-    protected ChessPiece(ChessPieceType type, Image image, Position position) {
-        this.position = position;
+    protected ChessPiece(ChessPieceType type, ChessPieceColor color, Image image, Position position) {
         this.type = type;
+        this.color = color;
         this.image = image;
+        this.position = position;
 
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(60);
@@ -32,6 +34,10 @@ public abstract class ChessPiece extends StackPane {
         return type;
     }
 
+    public ChessPieceColor getColor() {
+        return color;
+    }
+
     public Position getPosition() {
         return position;
     }
@@ -44,6 +50,7 @@ public abstract class ChessPiece extends StackPane {
     public String toString() {
         return "ChessPiece{" +
                 "type=" + type +
+                ", color=" + color +
                 ", position=" + position +
                 '}';
     }

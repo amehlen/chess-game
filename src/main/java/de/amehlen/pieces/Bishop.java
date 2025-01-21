@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Bishop extends ChessPiece {
 
-    public Bishop(ChessPieceType type, Image image, Position position) {
-        super(type, image, position);
+    public Bishop(ChessPieceType type, ChessPieceColor color, Image image, Position position) {
+        super(type, color, image, position);
     }
 }

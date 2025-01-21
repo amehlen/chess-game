@@ -27,12 +27,12 @@ public class ChessPieceFactory {
                 ChessPieceFactory.class.getResourceAsStream("/pieces/chess_" + key + ".png")));
 
         return switch (Character.toLowerCase(piece)) {
-            case 'b' -> new Bishop(type, image, position);
-            case 'k' -> new King(type, image, position);
-            case 'n' -> new Knight(type, image, position);
-            case 'p' -> new Pawn(type, image, position);
-            case 'q' -> new Queen(type, image, position);
-            case 'r' -> new Rook(type, image, position);
+            case 'b' -> new Bishop(type, color, image, position);
+            case 'k' -> new King(type, color, image, position);
+            case 'n' -> new Knight(type, color, image, position);
+            case 'p' -> new Pawn(type, color, image, position);
+            case 'q' -> new Queen(type, color, image, position);
+            case 'r' -> new Rook(type, color, image, position);
             default -> throw new IllegalArgumentException("Unknown chess piece: " + piece);
         };
     }
